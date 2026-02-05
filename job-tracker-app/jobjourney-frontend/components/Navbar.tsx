@@ -10,18 +10,17 @@ const NavBar = ({ className }: { className?: string }) => {
   return (
     <div
       className={cn(
-        "fixed top-10 inset-x-0 max-w-2xl mx-auto z-50 flex justify-center"
+        "fixed top-10 inset-x-0 max-w-2xl mx-auto z-50 flex justify-center",
       )}
     >
-      <Menu  setActive={setActive} >
-      <div className="fixed top-10 inset-x-0 z-50 flex justify-center ">
-  <div className="flex gap-6 rounded-full bg-blue-500 px-50 py-5 text-white ">
-    <HoveredLink href="/">Home</HoveredLink>
-    <HoveredLink href="/login">Login</HoveredLink>
-    <HoveredLink href="/signup">Sign in</HoveredLink>
-  </div>
-</div>
-
+      <Menu setActive={setActive}>
+        <div className="fixed top-10 inset-x-0 z-50 flex justify-center ">
+          <div className="flex gap-6 rounded-full bg-blue-500 px-50 py-5 text-white ">
+            <HoveredLink href="/">Home</HoveredLink>
+            <HoveredLink href="/login">Login</HoveredLink>
+            <HoveredLink href="/signup">Sign Up</HoveredLink>
+          </div>
+        </div>
       </Menu>
     </div>
   );
