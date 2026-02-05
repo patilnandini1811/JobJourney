@@ -10,7 +10,7 @@ const NavBar = ({ className }: { className?: string }) => {
   return (
     <div
       className={cn(
-        "fixed top-10 inset-x-0 max-w-2xl mx-auto z-50 flex justify-center"
+        "fixed top-20 inset-x-0 max-w-2xl mx-auto z-50 flex justify-center"
       )}
     >
       <Menu  setActive={setActive} >
