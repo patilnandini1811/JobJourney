@@ -1,4 +1,5 @@
 import { PrismaClient, Status } from "@prisma/client";
+import bcrypt from "bcrypt";
 
 const prisma = new PrismaClient({
   accelerateUrl: process.env.DATABASE_URL!,
@@ -9,12 +10,16 @@ async function main() {
   await prisma.application.deleteMany();
   await prisma.user.deleteMany();
 
+  // Hash passwords
+  const hashedPassword1 = await bcrypt.hash("hashedpassword123", 10);
+  const hashedPassword2 = await bcrypt.hash("hashedpassword456", 10);
+
   // User 1
   const user1 = await prisma.user.create({
     data: {
       username: "brooke_dev",
       email: "brooke@example.com",
-      password: "hashedpassword123",
+      password: hashedPassword1,
       application: {
         create: [
           {
@@ -51,7 +56,7 @@ async function main() {
     data: {
       username: "nandini_dev",
       email: "nandini@example.com",
-      password: "hashedpassword456",
+      password: hashedPassword2,
       application: {
         create: [
           {
