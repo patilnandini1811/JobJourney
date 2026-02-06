@@ -1,13 +1,13 @@
 "use client";
 
-import React, { useState } from "react";
-import { Menu, MenuItem, HoveredLink } from "../components/ui/navbar-menu";
-import { cn } from "@/lib/utils/cn";
+import React from "react";
+import Link from "next/link";
+import Image from "next/image";
+import GradientBtn from "./ui/GradientBtn";
 
-const NavBar = ({ className }: { className?: string }) => {
-  const [active, setActive] = useState<string | null>(null);
-
+export default function Navbar() {
   return (
+<<<<<<< Updated upstream
     <div
       className={cn(
         "fixed top-10 inset-x-0 max-w-2xl mx-auto z-50 flex justify-center",
@@ -20,10 +20,43 @@ const NavBar = ({ className }: { className?: string }) => {
             <HoveredLink href="/login">Login</HoveredLink>
             <HoveredLink href="/register">Sign Up</HoveredLink>
           </div>
-        </div>
-      </Menu>
-    </div>
-  );
-};
+=======
+    <header className="w-full bg-white ">
+      <div className="mx-auto flex max-w-1/2 items- justify-between px-6 py-4">
+        {/* left */}
+        <Link href="/" className="flex items-center gap-2">
+          <Image
+            src="/jobjourney2.png"
+            alt="JobJourney"
+            width={240}
+            height={140}
+            
+           
+          />
+        </Link>
 
-export default NavBar;
+        {/* right */}
+        <div className="flex items-center gap-4">
+          {/* Login: gradient ONLY on hover */}
+          <GradientBtn
+  title="Login"
+  link="/login"
+  size="sm"
+  variant="ghost"
+  className="text-xl font-extrabold text-blue-800 tracking-normal"
+ />
+
+<GradientBtn
+  title="Sign Up"
+  link="/signup"
+  size="sm"
+  variant="ghost"
+  className="text-xl font-extrabold text-blue-800 tracking-normal"
+ />
+
+>>>>>>> Stashed changes
+        </div>
+      </div>
+    </header>
+  );
+}
