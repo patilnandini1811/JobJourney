@@ -17,7 +17,7 @@ const LoginPage2 = () => {
     try {
       //CALL LOGIN API
       await loginUser(email, password);
-      console.log("Logged in Successfully!");
+      console.log("Login user Successfully!");
       window.location.href = "/";
     } catch (err: any) {
       setError(err.message);
