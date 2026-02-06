@@ -22,11 +22,9 @@ const GradientBtn = ({
     md: "h-[60px] w-[120px] text-xl",
     lg: "h-[60px] w-[270px] text-2xl",
   }[size];
-  
-  
 
   const base =
-    "tracking-widest font-bold rounded transition-all duration-300";
+    "tracking-widest font-bold rounded transition-all duration-300 hover:cursor-pointer";
 
   const variants = {
     solid:

@@ -4,11 +4,9 @@ import Link from "next/link";
 
 export default function HeroSection() {
   return (
-    <section className="w-full bg-white border">
+    <section className="w-full bg-white ">
       <div className="mx-auto max-w-6xl px-6 pt-10 pb-16">
-     
         <div className="grid grid-cols-1 items-start gap-14 md:grid-cols-2">
-         
           <div className="pt-2">
             <p className="mt-3 text-lg font-bold tracking-widest text-gray-900">
               MEET JOBJOURNEY
