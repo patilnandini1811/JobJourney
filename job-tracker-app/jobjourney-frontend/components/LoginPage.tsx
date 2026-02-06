@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { loginUser } from "@/lib/api/auth";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -11,20 +12,13 @@ export default function LoginPage() {
     e.preventDefault();
     setError("");
 
-    const res = await fetch("/api/auth/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
-    });
-
-    if (!res.ok) {
-      const data = await res.json();
-      setError(data.error || "Something went wrong");
-      return;
+    try {
+      //CALL LOGIN API
+      await loginUser(email, password);
+      window.location.href = "/";
+    } catch (err: any) {
+      setError(err.message);
     }
-
-    // Login successful — redirect or refresh
-    window.location.href = "/dashboard";
   }
 
   return (

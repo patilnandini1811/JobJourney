@@ -2,8 +2,28 @@
 
 import GradientBtn from "./ui/GradientBtn";
 import { AiFillCloseSquare } from "react-icons/ai";
+import { loginUser } from "@/lib/api/auth";
+import { useState } from "react";
 
 const LoginPage2 = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setError("");
+
+    try {
+      //CALL LOGIN API
+      await loginUser(email, password);
+      console.log("Logged in Successfully!");
+      window.location.href = "/";
+    } catch (err: any) {
+      setError(err.message);
+    }
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-500 to-sky-400 flex items-start justify-center">
       <div className="bg-white relative min-w-[320px]  p-8 mt-12 shadow-lg w-4/5 md:w-1/2 lg:w-1/4 ">
@@ -13,11 +33,13 @@ const LoginPage2 = () => {
           </a>
         </span>
         <h2 className="font-bold text-3xl text-center mb-12">Login</h2>
-        <form className="w-[270px] mx-auto" action="" method="POST">
+        <form className="w-[270px] mx-auto" onSubmit={handleSubmit}>
           <div className="flex flex-col gap-8 w-full max-w-sm">
             <input
               type="email"
               placeholder="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               className="w-full px-4 py-2 border-b-1 border-gray-400
            focus:outline-none focus:ring-2 focus:ring-sky-400
            placeholder:text-gray-400"
@@ -25,6 +47,8 @@ const LoginPage2 = () => {
             <input
               type="password"
               placeholder="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               className="w-full px-4 py-2 border-b-1 border-gray-400
            focus:outline-none focus:ring-2 focus:ring-sky-400
            placeholder:text-gray-400"
@@ -37,6 +61,7 @@ const LoginPage2 = () => {
               />
               <span className="text-gray-400">Remember me?</span>
             </label>
+            {error && <p className="text-red-500">{error}</p>}
             <GradientBtn size="lg" title="Login" />
           </div>
         </form>
