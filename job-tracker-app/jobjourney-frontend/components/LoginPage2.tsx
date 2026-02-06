@@ -1,13 +1,19 @@
 "use client";
 
 import GradientBtn from "./ui/GradientBtn";
+import { AiFillCloseSquare } from "react-icons/ai";
 
 const LoginPage2 = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-500 to-sky-400 flex items-start justify-center">
-      <div className="bg-white p-8 mt-12 shadow-lg w-4/5 md:w-1/2 lg:w-1/4 ">
+      <div className="bg-white relative min-w-[320px]  p-8 mt-12 shadow-lg w-4/5 md:w-1/2 lg:w-1/4 ">
+        <span className="absolute -top-[4px] -right-[4px] text-4xl hover:cursor-pointer hover:text-red-600">
+          <a href="/">
+            <AiFillCloseSquare />
+          </a>
+        </span>
         <h2 className="font-bold text-3xl text-center mb-12">Login</h2>
-        <form action="" method="POST">
+        <form className="w-[270px] mx-auto" action="" method="POST">
           <div className="flex flex-col gap-8 w-full max-w-sm">
             <input
               type="email"

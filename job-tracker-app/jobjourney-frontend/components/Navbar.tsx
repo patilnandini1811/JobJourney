@@ -18,7 +18,7 @@ const NavBar = ({ className }: { className?: string }) => {
           <div className="flex gap-6 rounded-full bg-blue-500 px-50 py-5 text-white ">
             <HoveredLink href="/">Home</HoveredLink>
             <HoveredLink href="/login">Login</HoveredLink>
-            <HoveredLink href="/signup">Sign Up</HoveredLink>
+            <HoveredLink href="/register">Sign Up</HoveredLink>
           </div>
         </div>
       </Menu>
