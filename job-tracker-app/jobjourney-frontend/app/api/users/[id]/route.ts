@@ -21,6 +21,9 @@ export async function GET(
   try {
     const user = await prisma.user.findUnique({
       where: { id: numericId },
+      include: {
+        application: true, // ← fetch all applications for this user
+      },
     });
 
     if (!user) {

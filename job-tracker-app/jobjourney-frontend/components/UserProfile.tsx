@@ -29,7 +29,7 @@ const UserProfile = () => {
 
     loadUser();
   }, []);
-
+  console.log(user);
   if (loading) {
     return (
       <>
