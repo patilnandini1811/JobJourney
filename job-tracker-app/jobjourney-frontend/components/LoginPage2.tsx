@@ -4,11 +4,13 @@ import GradientBtn from "./ui/GradientBtn";
 import { AiFillCloseSquare } from "react-icons/ai";
 import { loginUser } from "@/lib/api/auth";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const LoginPage2 = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const router = useRouter();
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -16,9 +18,9 @@ const LoginPage2 = () => {
 
     try {
       //CALL LOGIN API
-      await loginUser(email, password);
-      console.log("Login user Successfully!");
-      window.location.href = "/";
+      const data = await loginUser(email, password);
+      //REDIRECT USER TO /USER/:ID
+      router.push(`/user/${data.user.id}`);
     } catch (err: any) {
       setError(err.message);
     }
