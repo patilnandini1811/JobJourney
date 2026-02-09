@@ -1,4 +1,5 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
+
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient({
@@ -6,14 +7,20 @@ const prisma = new PrismaClient({
 });
 
 export async function GET(
-  req: Request,
-  { params }: { params: { id: number } },
+  req: NextRequest,
+  context: { params: Promise<{ id: string }> },
 ) {
-  const { id } = params;
+  const { id } = await context.params; // <-- THIS is the fix
+
+  const numericId = Number(id);
+
+  if (isNaN(numericId)) {
+    return NextResponse.json({ error: "Invalid ID" }, { status: 400 });
+  }
 
   try {
     const user = await prisma.user.findUnique({
-      where: { id },
+      where: { id: numericId },
     });
 
     if (!user) {
