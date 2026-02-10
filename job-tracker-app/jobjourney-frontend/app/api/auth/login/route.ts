@@ -22,7 +22,10 @@ export async function POST(req: Request) {
     expiresIn: "1d",
   });
 
-  const res = NextResponse.json({ message: "Logged in" });
+  const res = NextResponse.json({
+    message: "Logged in",
+    user: { id: user.id, email: user.email, username: user.username },
+  });
   res.cookies.set("token", token, { httpOnly: true, secure: true });
 
   return res;
