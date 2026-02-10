@@ -5,14 +5,18 @@ import ProfileStat from "./ui/ProfileStat";
 import GradientBtn from "./ui/GradientBtn";
 import { FaPlus } from "react-icons/fa6";
 import { fetchUser } from "@/lib/api/user";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { useParams } from "next/navigation";
+import { Status, User, Application } from "@prisma/client";
 
 const UserProfile = () => {
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<
+    (User & { application: Application[] }) | null
+  >(null);
   const [loading, setLoading] = useState(true);
   const { id } = useParams<{ id: string }>();
 
+  //FETCH USER DATA ON ID CHANGE
   useEffect(() => {
     if (!id) return; // avoid running before params exist
 
@@ -28,8 +32,35 @@ const UserProfile = () => {
     }
 
     loadUser();
-  }, []);
-  console.log(user);
+  }, [id]);
+
+  //COUNT STATUSES ON USER ID CHANGE
+  const counts = useMemo(() => {
+    //if no user set all values 0 default
+    if (!user) {
+      return {
+        Applied: 0,
+        InProgress: 0,
+        Rejected: 0,
+      };
+    }
+    const result: Record<Status, number> = {
+      Applied: 0,
+      InProgress: 0,
+      Rejected: 0,
+    };
+    user.application.forEach((app) => {
+      result[app.status]++;
+    });
+    return result;
+  }, [user]);
+
+  //PRINT FOR TESTING
+  useEffect(() => {
+    console.log("Status counts:", counts);
+    console.log("DB User: ", user);
+  }, [counts]);
+
   if (loading) {
     return (
       <>
@@ -62,14 +93,14 @@ const UserProfile = () => {
             <Avatar size="w-40 h-40" />
           </div>
           <h1 className="font-semibold text-2xl text-center">
-            {user.username}
+            {user!.username}
           </h1>
-          <h2 className="text-center">{user.email}</h2>
+          <h2 className="text-center">{user!.email}</h2>
           {/*Statistics */}
           <div className="flex justify-between w-4/5 mt-12 mx-auto">
-            <ProfileStat stat={12} title="Applied" />
-            <ProfileStat stat={20} title="In-Progress" />
-            <ProfileStat stat={5} title="Rejected" />
+            <ProfileStat stat={counts.Applied} title="Applied" />
+            <ProfileStat stat={counts.InProgress} title="In-Progress" />
+            <ProfileStat stat={counts.Rejected} title="Rejected" />
           </div>
           <div className="w-full flex justify-center mt-10">
             <GradientBtn title="Show More" link="#" size="lg" />
