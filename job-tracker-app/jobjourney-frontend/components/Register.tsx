@@ -4,12 +4,12 @@ import GradientBtn from "./ui/GradientBtn";
 import Spacer from "./ui/Spacer";
 import { AiFillCloseSquare } from "react-icons/ai";
 import { useState } from "react";
-import { registerUser } from "@/lib/api/auth"; // ✅ add this
+import { registerUser } from "@/lib/api/auth"; 
 
 const Register = () => {
-  const [username, setUsername] = useState(""); // ✅ used now
-  const [email, setEmail] = useState("");       // ✅ used now
-  const [password, setPassword] = useState(""); // ✅ used now
+  const [username, setUsername] = useState(""); 
+  const [email, setEmail] = useState("");       
+  const [password, setPassword] = useState(""); 
   const [agree, setAgree] = useState(false);    
   const [error, setError] = useState("");
 
@@ -56,7 +56,7 @@ const Register = () => {
               placeholder="* username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className="w-full px-4 py-2 border-b-1 border-gray-400
+              className="w-full px-4 py-2 border-b-1 border-gray-400 text-black
               focus:outline-none focus:ring-2 focus:ring-sky-400
               placeholder:text-gray-400"
             />
@@ -66,7 +66,7 @@ const Register = () => {
               placeholder="* email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-2 border-b-1 border-gray-400
+              className="w-full px-4 py-2 border-b-1 border-gray-400  text-black
               focus:outline-none focus:ring-2 focus:ring-sky-400
               placeholder:text-gray-400"
             />
@@ -76,7 +76,7 @@ const Register = () => {
               placeholder="* password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-2 border-b-1 border-gray-400
+              className="w-full px-4 py-2 border-b-1 border-gray-400  text-black
               focus:outline-none focus:ring-2 focus:ring-sky-400
               placeholder:text-gray-400"
             />
