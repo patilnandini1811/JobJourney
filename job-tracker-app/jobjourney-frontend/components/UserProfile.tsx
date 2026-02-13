@@ -7,8 +7,12 @@ import { FaPlus } from "react-icons/fa6";
 import { fetchUser } from "@/lib/api/user";
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
+import { useRouter } from "next/navigation";
+
 
 const UserProfile = () => {
+  const router = useRouter();
+
   const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const { id } = useParams<{ id: string }>();
@@ -54,9 +58,13 @@ const UserProfile = () => {
       <div className="min-h-screen relative w-full flex items-center justify-center">
         <div className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-blue-500 to-sky-400"></div>
         <div className="bg-white relative shadow-lg w-full h-[400px] z-1 -mt-12 md:w-3/4 xl:w-1/2">
-          <div className="absolute top-2 right-2 flex gap-2 items-center text-blue-500 hover:text-blue-700">
-            <FaPlus /> Add Activity
-          </div>
+        <div
+  onClick={() => router.push(`/applicationform?userId=${id}`)}
+  className="absolute top-2 right-2 flex gap-2 items-center text-blue-500 hover:text-blue-700 cursor-pointer"
+>
+  <FaPlus /> Add Activity
+</div>
+
           {/*Avatar */}
           <div className="w-full -mt-20 flex justify-center">
             <Avatar size="w-40 h-40" />
