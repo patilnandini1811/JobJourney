@@ -5,18 +5,20 @@ import ProfileStat from "./ui/ProfileStat";
 import GradientBtn from "./ui/GradientBtn";
 import { FaPlus } from "react-icons/fa6";
 import { fetchUser } from "@/lib/api/user";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { useParams } from "next/navigation";
 import { useRouter } from "next/navigation";
-
+import { Status, Application, User } from "@prisma/client";
 
 const UserProfile = () => {
   const router = useRouter();
-
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<
+    (User & { application: Application[] }) | null
+  >(null);
   const [loading, setLoading] = useState(true);
   const { id } = useParams<{ id: string }>();
 
+  //FETCH USER DATA ON ID CHANGE
   useEffect(() => {
     if (!id) return; // avoid running before params exist
 
@@ -32,8 +34,35 @@ const UserProfile = () => {
     }
 
     loadUser();
-  }, []);
-  console.log(user);
+  }, [id]);
+
+  //COUNT STATUSES ON USER ID CHANGE
+  const counts = useMemo(() => {
+    //if no user set all values 0 default
+    if (!user) {
+      return {
+        Applied: 0,
+        InProgress: 0,
+        Rejected: 0,
+      };
+    }
+    const result: Record<Status, number> = {
+      Applied: 0,
+      InProgress: 0,
+      Rejected: 0,
+    };
+    user.application.forEach((app) => {
+      result[app.status]++;
+    });
+    return result;
+  }, [user]);
+
+  //PRINT FOR TESTING
+  useEffect(() => {
+    console.log("Status counts:", counts);
+    console.log("DB User: ", user);
+  }, [counts]);
+
   if (loading) {
     return (
       <>
@@ -58,26 +87,26 @@ const UserProfile = () => {
       <div className="min-h-screen relative w-full flex items-center justify-center">
         <div className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-blue-500 to-sky-400"></div>
         <div className="bg-white relative shadow-lg w-full h-[400px] z-1 -mt-12 md:w-3/4 xl:w-1/2">
-        <div
-  onClick={() => router.push(`/applicationform?userId=${id}`)}
-  className="absolute top-2 right-2 flex gap-2 items-center text-blue-500 hover:text-blue-700 cursor-pointer"
->
-  <FaPlus /> Add Activity
-</div>
+          <div
+            onClick={() => router.push(`/applicationform?userId=${id}`)}
+            className="absolute top-2 right-2 flex gap-2 items-center text-blue-500 hover:text-blue-700 cursor-pointer"
+          >
+            <FaPlus /> Add Activity
+          </div>
 
           {/*Avatar */}
           <div className="w-full -mt-20 flex justify-center">
             <Avatar size="w-40 h-40" />
           </div>
           <h1 className="font-semibold text-2xl text-center">
-            {user.username}
+            {user!.username}
           </h1>
-          <h2 className="text-center">{user.email}</h2>
+          <h2 className="text-center">{user!.email}</h2>
           {/*Statistics */}
           <div className="flex justify-between w-4/5 mt-12 mx-auto">
-            <ProfileStat stat={12} title="Applied" />
-            <ProfileStat stat={20} title="In-Progress" />
-            <ProfileStat stat={5} title="Rejected" />
+            <ProfileStat stat={counts.Applied} title="Applied" />
+            <ProfileStat stat={counts.InProgress} title="In-Progress" />
+            <ProfileStat stat={counts.Rejected} title="Rejected" />
           </div>
           <div className="w-full flex justify-center mt-10">
             <GradientBtn title="Show More" link="#" size="lg" />
