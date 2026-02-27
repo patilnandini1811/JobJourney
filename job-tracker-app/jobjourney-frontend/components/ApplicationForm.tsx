@@ -4,9 +4,11 @@ import React from "react";
 import GradientBtn from "./ui/GradientBtn";
 import { IoArrowBack } from "react-icons/io5";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export const ApplicationForm = () => {
   const router = useRouter();
+  const [role, setRole] = useState<any>(null);
 
   return (
     <main className="min-h-screen bg-gray-50 flex items-start justify-center p-4 md:p-8 overflow-x-hidden">
@@ -50,6 +52,7 @@ export const ApplicationForm = () => {
                 className="w-full rounded-lg border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-sky-400"
               />
             </div>
+            
           </div>
 
           {/* Row 2 */}
@@ -68,6 +71,15 @@ export const ApplicationForm = () => {
               <label className="text-sm font-medium text-gray-700">CV</label>
               <input
                 placeholder="e.g. Frontend-CV-v3.pdf"
+                className="w-full rounded-lg border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-sky-400"
+              />
+            </div>
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-gray-700">
+                Job location
+              </label>
+              <input
+                placeholder="Company Name"
                 className="w-full rounded-lg border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-sky-400"
               />
             </div>
