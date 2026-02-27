@@ -32,6 +32,8 @@ model Application {
   id            Int       @id @default(autoincrement())
   userId        Int
   user          User      @relation(fields: [userId], references: [id])
+  role          String?
+  cv_version    String?   
   company_name  String
   job_location  String
   status        Status
