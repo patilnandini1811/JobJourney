@@ -28,7 +28,7 @@ export default function LoginPage() {
         placeholder="Email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
-        className="border p-2 w-full"
+        className="border p-2 w-full "text-blck-900
       />
 
       <input
@@ -36,7 +36,7 @@ export default function LoginPage() {
         placeholder="Password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
-        className="border p-2 w-full"
+        className="border p-2 w-full "text-black-900
       />
 
       {error && <p className="text-red-500">{error}</p>}

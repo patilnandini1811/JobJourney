@@ -42,23 +42,23 @@ const LoginPage2 = () => {
               placeholder="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-2 border-b-1 border-gray-400
+              className="w-full px-4 py-2 border-b-1 border-gray-900
            focus:outline-none focus:ring-2 focus:ring-sky-400
-           placeholder:text-gray-400"
+           placeholder:text-black-800"
             />
             <input
               type="password"
               placeholder="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-2 border-b-1 border-gray-400
+              className="w-full px-4 py-2 border-b-1 border-black-700
            focus:outline-none focus:ring-2 focus:ring-sky-400
-           placeholder:text-gray-400"
+           placeholder:text-black-400"
             />
             <label className="flex items-center gap-2 mb-4 cursor-pointer select-none">
               <input
                 type="checkbox"
-                className="h-4 w-4 rounded border-gray-400 text-sky-500
+                className="h-4 w-4 rounded border-black-400 text-sky-500
            focus:ring-sky-400 focus:ring-2"
               />
               <span className="text-gray-400">Remember me?</span>
